@@ -1,8 +1,19 @@
 # Boom Zoom!
 
+Simple image zooming.
+
+Works both as a simple plug'n play thing on static html pages where messing
+with the dom is okay, and all the way to React components where you'd like full
+control.
+
+`transform` is used, which means you will have to be cautious if your images
+for some reason already are transformed.
+
 ## Install
 
-Don't. Not yet. Wait a second till it's done.
+```sh
+npm install boomzoom
+```
 
 ## Usage (very subject to change)
 
@@ -16,18 +27,16 @@ boomzoom('.my-images')
 ```js
 // The "don't touch my dom" approach:
 var image = document.querySelector('.my-image');
-image.style.transform = boomzoom.zoomIn(image, {margin: 20}).cssTransform;
+image.style.transform = boomzoom.transposition(image, {margin: 20}).cssTransform;
 
 // Zooming out:
 image.style.transform = ''; // You don't need boomzoom for this
-// or, if you insist
-boomzoom.zoomOut(image);
 ```
 
 ```js
 // The "What can this thing do" approach:
 var image = document.querySelector('.my-image');
-var zoomDimensions = boomzoom.zoomIn(image);
+var zoomDimensions = boomzoom.transposition(image);
 console.log(zoomDimensions);
 ```
 

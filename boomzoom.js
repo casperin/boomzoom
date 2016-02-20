@@ -65,12 +65,12 @@ function boomzoom (selector) {
 
   function clickHandler (event) {
     var image = event.target;
-    boomzoom.zoomOut(zoomedImage); // Zoom out of any zoomed images
+    if (zoomedImage) image.style.transform = '';
 
     if (image === zoomedImage) { // zoom out
       zoomedImage = null;
     } else { // zoom in
-      image.style.transform = boomzoom.zoomIn(image, {margin: margin}).cssTransform;
+      image.style.transform = boomzoom.transposition(image, {margin: margin}).cssTransform;
       zoomedImage = image;
       // Stop propagation so the body won't catch the event later and zoom out of
       // all images (including the one we just zoomed in on).
@@ -79,14 +79,14 @@ function boomzoom (selector) {
   }
 
   function bodyClickHandler (event) {
-    boomzoom.zoomOut(zoomedImage);
+    if (zoomedImage) image.style.transform = '';
     zoomedImage = null;
   }
 
   return bz(selector);
 }
 
-boomzoom.zoomIn = function zoomIn (image, options) {
+boomzoom.transposition = function transposition (image, options) {
   options = options || {};
   var margin = options.margin || 0;
   /**
@@ -117,15 +117,11 @@ boomzoom.zoomIn = function zoomIn (image, options) {
   var boundingWidth = Math.min(natural.width, win.width);
   var boundingHeight = Math.min(natural.height, win.height);
 
-    /**
-     * Calculate how much we need to scale image.
-     */
+  // Calculate how much we need to scale image.
   var scalar = naturalRatio > winRatio ? boundingWidth / scaled.width
                                        : boundingHeight / scaled.height;
 
-    /**
-     * Calculate how much we need to offset image to center it.
-     */
+  // Calculate how much we need to offset image to center it.
   var dx = (winCenter.x - scaledCenter.x) / scalar;
   var dy = (winCenter.y - scaledCenter.y) / scalar;
 
@@ -135,11 +131,6 @@ boomzoom.zoomIn = function zoomIn (image, options) {
     dy: dy,
     cssTransform: 'scale('+scalar+') translate('+dx+'px, '+dy+'px)'
   };
-}
-
-boomzoom.zoomOut = function zoomOut (image) {
-  if (image && image.style)
-    image.style.transform = '';
 }
 
 /**
