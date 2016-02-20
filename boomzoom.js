@@ -1,7 +1,6 @@
 function boomzoom (selector) {
   var margin = 0;           // Margin between zoomed image and window border.
   var images = [];          // All images that was added.
-  var noDom = false;
   var zoomedImage = null;   // The currently zoomed in image.
 
   /**
@@ -117,6 +116,7 @@ boomzoom.zoomIn = function zoomIn (image, options) {
   };
   var boundingWidth = Math.min(natural.width, win.width);
   var boundingHeight = Math.min(natural.height, win.height);
+
     /**
      * Calculate how much we need to scale image.
      */
@@ -128,6 +128,7 @@ boomzoom.zoomIn = function zoomIn (image, options) {
      */
   var dx = (winCenter.x - scaledCenter.x) / scalar;
   var dy = (winCenter.y - scaledCenter.y) / scalar;
+
   return {
     scalar: scalar,
     dx: dx,
