@@ -15,7 +15,7 @@ for some reason already are transformed.
 npm install boomzoom
 ```
 
-## Usage (very subject to change)
+## Usage
 
 ```js
 // The simple approach:
